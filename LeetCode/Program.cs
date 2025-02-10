@@ -10,7 +10,7 @@ namespace LeetCode
     {
         static void Main(string[] args)
         {
-            
+
             ////3174. Clear Digits
             //Console.WriteLine("Enter a string with numbers");
             //string s = Console.ReadLine();
@@ -31,6 +31,22 @@ namespace LeetCode
             //        s=s.Remove(j, count);
             //        i =i-count;
             //    }
+            //}
+
+            /* 1. Two Sum */
+            //int target = 9;
+            //int[] nums = new int[] { 2, 7, 11, 15 };
+            //for (int firstnum = 0 ; firstnum < nums.Count(); firstnum++)
+            //{
+            //    for (int second = 1 ; second < nums.Count(); second++)
+            //    {
+            //        if (target == nums[firstnum] + nums[second])
+            //        {
+            //             nums = new int[]{ firstnum,second};
+            //            break;
+            //        }
+            //    }
+
             //}
         }
     }
