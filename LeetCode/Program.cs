@@ -48,6 +48,18 @@ namespace LeetCode
             //    }
 
             //}
+            /*9. number Palindrome Number*/
+            //Console.WriteLine("Enter a  numbers");
+            //int x = int.Parse(Console.ReadLine());
+            //int reverse = 0;
+            //    int num = x;
+            //    while (x != 0 && x > 0)
+            //    {
+            //        reverse = (reverse * 10) + x % 10;
+            //        x /= 10;
+            //    }
+            //string msg= reverse == num ? "is palindrom" : "is not palindrom";
+            //Console.WriteLine(msg);
         }
     }
 }
