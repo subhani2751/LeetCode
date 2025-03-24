@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using System.Numerics;
 
 namespace LeetCode
 {
@@ -91,33 +92,31 @@ namespace LeetCode
             //string a = program.LongestCommonPrefix(strings);//2147483648 //91283472332
             //Console.WriteLine(a);
 
+            //Program program = new Program();
+            //int[] lst = new int[] { 1, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 125}; //9223372036854775807L
+            //Array.Sort(lst);
+            //for (int i = 0; i < lst.Length; i++)
+            //{
+            //    program.AddAtBeginning(lst[i]);
+            //}
+            //var t1 =program.sumofnode(program.head);
+            //Program program1 = new Program();
+            //int[] lst1 = new int[] {  4,6,5 };
+            //for (int i = 0; i < lst1.Length; i++)
+            //{
+            //    program1.AddAtBeginning(lst1[i]);
+            //}
+            //var t2 = program.sumofnode(program1.head);
+            //BigInteger total =  t1 + t2;
+            //var retun = program.CreateListNode(total.ToString());
+            //program.AddAtEnd(10);
+            //program.AddAtPosition(3,20);
+
+            //Program program= new Program();
+            //program.IsValid("()");
             Program program = new Program();
-            //program.head = new ListNode();
-            int[] lst = new int[] { 9, 9, 9, 9, 9, 9, 9, 9, 9, 1 };
-            for (int i = 0; i < lst.Length; i++)
-            {
-                program.AddAtBeginning(lst[i]);
-            }
-            //program.AddAtBeginning(1);
-            //program.AddAtBeginning(9);
-            //program.AddAtBeginning(9);
-            //program.AddAtBeginning(9);
-            //program.AddAtBeginning(9);
-            //program.AddAtBeginning(9);//[0,0,0,0,0,0,0,0,0,0,1]
-            //program.ReverseeLinkedlistnode(program.head);
-            var t1 =program.sumofnode(program.head);
-            //program.AddAtBeginning(30);
-            Program program1 = new Program();
-            int[] lst1 = new int[] { 9 };
-            for (int i = 0; i < lst1.Length; i++)
-            {
-                program1.AddAtBeginning(lst1[i]);
-            }
-            var t2 = program.sumofnode(program1.head);
-            int total =  t1 + t2;
-            var retun = program.CreateListNode(total.ToString());
-            program.AddAtEnd(10);
-            program.AddAtPosition(3,20);
+            int[] lst = new int[] { 3, 2, 2, 3 };
+            int a=program.RemoveElement(lst,3);
 
         }
         public ListNode ReverseeLinkedlistnode(ListNode node)
@@ -155,7 +154,7 @@ namespace LeetCode
             }
             return curent;
         }
-        public int sumofnode(ListNode node)
+        public BigInteger sumofnode(ListNode node)
         {
             string total = "";
             StringBuilder builder = new StringBuilder();
@@ -164,26 +163,20 @@ namespace LeetCode
             ListNode curentnode= node;
             while (curentnode != null) 
             {
-                total += curentnode.val;
+                builder.Append(curentnode.val);
                 if (curentnode.Next == null)
                 {
                     break;
                 }
                 curentnode = curentnode.Next;
             }
+            total = builder.ToString();
+            builder=new StringBuilder();
             for (int i = total.Length - 1; i >= 0; i--)
             {
                 builder.Append(total[i]);
             }
-            if(builder.ToString().StartsWith("9") && builder.ToString().Length > 9)
-            {
-                total = "0" ;
-            }
-            else
-            {
-                total = builder.ToString();
-            }
-                return int.Parse(total.ToString());
+            return BigInteger.Parse(builder.ToString());
         }
         public void AddAtBeginning(int data)
         {
@@ -440,6 +433,66 @@ namespace LeetCode
                 }
             }
             return prefix;
+        }
+
+        public bool IsValid(string s)
+        {
+            string a = string.Empty;
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (a.Length >= 1)
+                {
+                    if (a[a.Length-1]=='[' && s[i] == ']')
+                    {
+                        a=a.Remove(a.Length - 1, 1);
+                    }
+                    else if (a[a.Length - 1] == '{' && s[i] == '}')
+                    {
+                        a = a.Remove(a.Length - 1, 1);
+                    }
+                    else if(a[a.Length - 1] == '(' && s[i] == ')')
+                    {
+                        a=a.Remove(a.Length - 1, 1);
+                    }
+                    else
+                    {
+                        a += s[i];
+                    }
+
+                }
+                else if(a.Length==0)
+                {
+                    a += s[i];
+                }
+            }
+            if (a.Length == 0)
+            {
+                return true;
+            }
+            return false;
+        }
+        public int RemoveElement(int[] nums, int val)
+        {
+            int removeval = 101;
+            int removecount = 0;
+            List<int> new1 = new List<int>();
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] == val)
+                {
+                    removecount++;
+                }
+                else
+                {
+                    new1.Add(nums[i]);
+                }
+            }
+            for(int i = 0;i< removecount; i++)
+            {
+                new1.Add(101);
+            }
+            nums = new1.ToArray();
+            return nums.Length-removecount;
         }
 
     }
