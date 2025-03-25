@@ -114,10 +114,19 @@ namespace LeetCode
 
             //Program program= new Program();
             //program.IsValid("()");
-            Program program = new Program();
-            int[] lst = new int[] { 3, 2, 2, 3 };
-            int a=program.RemoveElement(lst,3);
 
+            //Program program = new Program();
+            //int[] lst = new int[] { 3, 2, 2, 3 };
+            //int a = program.RemoveElement(lst, 3);
+
+            //Program program = new Program();
+            //int[] lst = new int[] { 1, 1, 2 };
+            //int a = program.RemoveDuplicates(lst);
+
+            Program program = new Program();
+            int[] lst = new int[] { 1, 2, 3, 4, 5 };
+            int[] lst1 = new int[] { 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 };
+            var  a = program.FindMedianSortedArrays(lst, lst1);
         }
         public ListNode ReverseeLinkedlistnode(ListNode node)
         {
@@ -142,7 +151,7 @@ namespace LeetCode
             ListNode curent = new ListNode();
             for (int i = 0; i < stotal.Length; i++)
             {
-                if(i==0)
+                if (i == 0)
                 {
                     curent.val = int.Parse(stotal[i].ToString());
                     continue;
@@ -158,10 +167,10 @@ namespace LeetCode
         {
             string total = "";
             StringBuilder builder = new StringBuilder();
-            if (node == null) 
+            if (node == null)
                 return 0;
-            ListNode curentnode= node;
-            while (curentnode != null) 
+            ListNode curentnode = node;
+            while (curentnode != null)
             {
                 builder.Append(curentnode.val);
                 if (curentnode.Next == null)
@@ -171,7 +180,7 @@ namespace LeetCode
                 curentnode = curentnode.Next;
             }
             total = builder.ToString();
-            builder=new StringBuilder();
+            builder = new StringBuilder();
             for (int i = total.Length - 1; i >= 0; i--)
             {
                 builder.Append(total[i]);
@@ -402,10 +411,10 @@ namespace LeetCode
                     {
                         isprefix = true;
                     }
-                    else 
-                    { 
+                    else
+                    {
                         isprefix = false;
-                        break; 
+                        break;
                     }
                 }
                 if (isprefix)
@@ -442,17 +451,17 @@ namespace LeetCode
             {
                 if (a.Length >= 1)
                 {
-                    if (a[a.Length-1]=='[' && s[i] == ']')
+                    if (a[a.Length - 1] == '[' && s[i] == ']')
                     {
-                        a=a.Remove(a.Length - 1, 1);
+                        a = a.Remove(a.Length - 1, 1);
                     }
                     else if (a[a.Length - 1] == '{' && s[i] == '}')
                     {
                         a = a.Remove(a.Length - 1, 1);
                     }
-                    else if(a[a.Length - 1] == '(' && s[i] == ')')
+                    else if (a[a.Length - 1] == '(' && s[i] == ')')
                     {
-                        a=a.Remove(a.Length - 1, 1);
+                        a = a.Remove(a.Length - 1, 1);
                     }
                     else
                     {
@@ -460,7 +469,7 @@ namespace LeetCode
                     }
 
                 }
-                else if(a.Length==0)
+                else if (a.Length == 0)
                 {
                     a += s[i];
                 }
@@ -471,7 +480,7 @@ namespace LeetCode
             }
             return false;
         }
-        public int RemoveElement(int[] nums, int val)
+        public int RemoveElement1(int[] nums, int val)
         {
             int removeval = 101;
             int removecount = 0;
@@ -487,14 +496,149 @@ namespace LeetCode
                     new1.Add(nums[i]);
                 }
             }
-            for(int i = 0;i< removecount; i++)
+            for (int i = 0; i < removecount; i++)
             {
-                new1.Add(101);
+                new1.Add(-1);
             }
             nums = new1.ToArray();
-            return nums.Length-removecount;
+            return nums.Length - removecount;
+        }
+        public int RemoveElement(int[] nums, int val)
+        {
+            int removeval = 101;
+            int removecount = 0;
+            int temp = 0;
+            int length = 0;
+            List<int> new1 = new List<int>();
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] == val)
+                {
+                    length = nums.Length - 1;
+                   
+                    while (length >= i && length > 0)
+                    {
+                        if (nums[length] == val)
+                        {
+                            length--;
+                        }
+                        else
+                        {
+                            removecount++;
+                            nums[i] = nums[length];
+                            nums[length] = val;
+                            break;
+                        }
+                    }
+                    //  removecount++;
+
+                }
+                // else
+                // {
+                //     new1.Add(nums[i]);
+                // }
+            }
+            // for(int i = 0;i< removecount; i++)
+            // {
+            //     new1.Add(val);
+            // }
+            // nums = new1.ToArray();
+            return nums.Length - removecount;
         }
 
+        public int RemoveDuplicates(int[] nums)
+        {
+            if(nums.Length == 0)
+            {
+                return 0;
+            }
+            int index = 1;
+            int previuos = nums[0];
+            for (int i = 1; i < nums.Length; i++)
+            {
+                if (previuos != nums[i])
+                {
+                    previuos = nums[i];
+                    nums[index] = nums[i];
+                    index++;
+                }
+            }
+            return index;
+        }
+
+        public double FindMedianSortedArrays1(int[] nums1, int[] nums2)
+        {
+            double Rvalue = 0.0;
+            int loopindex = nums1.Length + nums2.Length;
+            int divtotal = loopindex / 2;
+            int divtotal2 = loopindex % 2;
+            int mainindex = 0;
+            int[] newone = new int[loopindex];
+            while (loopindex != 0)
+            {
+                if (nums1.Length >= mainindex + 1)
+                {
+                    newone[mainindex] = nums1[mainindex];
+                    mainindex++;
+                }
+                else
+                {
+                    newone[mainindex] = nums2[mainindex - (nums1.Length)];
+                    mainindex++;
+                }
+                loopindex--;
+            }
+            Array.Sort(newone);
+            if (divtotal2 == 0)
+            {
+                Rvalue = (newone[divtotal] + newone[divtotal + 1]) / 2.00000;
+            }
+            else if (divtotal2 > 0)
+            {
+                Rvalue = newone[divtotal2];
+            }
+            return Rvalue;
+        }
+        public double FindMedianSortedArrays(int[] nums1, int[] nums2)
+        {
+            double Rvalue = 0.0;
+            int loopindex = nums1.Length + nums2.Length;
+            int mainindex = 0;
+            int divtotal = loopindex / 2;
+            int divtotal2 = loopindex % 2;
+            int[] newone = new int[loopindex];
+            while (loopindex != 0)
+            {
+                if (nums1.Length >= mainindex + 1)
+                {
+                    newone[mainindex] = nums1[mainindex];
+                    mainindex++;
+                }
+                else
+                {
+                    newone[mainindex] = nums2[mainindex - (nums1.Length)];
+                    mainindex++;
+                }
+                loopindex--;
+            }
+            if ((nums1.Length + nums2.Length) > 1)
+            {
+                Array.Sort(newone);
+                if (divtotal2 == 0)
+                {
+                    Rvalue = (newone[divtotal - 1] + newone[divtotal]) / 2.00000;
+                }
+                else if (divtotal2 > 0)
+                {
+                    Rvalue = newone[divtotal];
+                }
+            }
+            else
+            {
+                Rvalue = newone[0];
+            }
+            return Rvalue;
+        }
     }
     public class ListNode
     {
