@@ -123,10 +123,21 @@ namespace LeetCode
             //int[] lst = new int[] { 1, 1, 2 };
             //int a = program.RemoveDuplicates(lst);
 
+            //Program program = new Program();
+            //int[] lst = new int[] { 1, 2, 3, 4, 5 };
+            //int[] lst1 = new int[] { 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 };
+            //var  a = program.FindMedianSortedArrays(lst, lst1);
+
+
+            //Program program = new Program();
+            //int[] lst = new int[] { 9, 8, 7, 6, 5, 4, 3, 2, 1,0 };
+            //var  a = program.PlusOne(lst);
+
+            //Program program = new Program();
+            //var a = program.IsAnagram("car","rat");
+
             Program program = new Program();
-            int[] lst = new int[] { 1, 2, 3, 4, 5 };
-            int[] lst1 = new int[] { 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 };
-            var  a = program.FindMedianSortedArrays(lst, lst1);
+            var a = program.CountPrimes(499979);
         }
         public ListNode ReverseeLinkedlistnode(ListNode node)
         {
@@ -426,6 +437,7 @@ namespace LeetCode
                     break;
                 }
             }
+            var char1= prefix.ToCharArray();
             return prefix;
         }
         public string LongestCommonPrefix(string[] strs)
@@ -530,19 +542,9 @@ namespace LeetCode
                             break;
                         }
                     }
-                    //  removecount++;
-
                 }
-                // else
-                // {
-                //     new1.Add(nums[i]);
-                // }
             }
-            // for(int i = 0;i< removecount; i++)
-            // {
-            //     new1.Add(val);
-            // }
-            // nums = new1.ToArray();
+           
             return nums.Length - removecount;
         }
 
@@ -638,6 +640,141 @@ namespace LeetCode
                 Rvalue = newone[0];
             }
             return Rvalue;
+        }
+
+        public int[] PlusOne(int[] digits)
+        {
+            
+            int index = 0; 
+            BigInteger total = 0;
+            string svalue = "";
+            for (int i = 0; i < digits.Length; i++)
+            {
+                if (digits.Length - 1 == i)
+                {
+                    total += digits[i]+1;
+                }
+                else
+                {
+                    total += digits[i];
+                    total *= 10;
+                }
+            }
+            svalue = total.ToString();
+            int[] ints = new int[svalue.Length];
+            while (index< svalue.Length)
+            {
+                ints[index] = svalue[index]-'0';
+                index++;
+            }
+            return ints;
+
+        }
+
+        public bool IsAnagram(string s, string t)
+        {
+            if (s.Length != t.Length)
+            {
+                return false;
+            }
+            int value = 0;
+            Dictionary<char,int> dicchar= new Dictionary<char,int>();
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (dicchar.ContainsKey(s[i]))
+                {
+                    dicchar[s[i]]++;
+                }
+                else
+                {
+                    dicchar.Add(s[i], 1);
+                }
+            }
+            for (int i = 0; i < t.Length; i++)
+            {
+                if (dicchar.ContainsKey(t[i]))
+                {
+                    value= dicchar[t[i]];
+                    if(value == 0)
+                    {
+                        break;
+                    }
+                    dicchar[s[i]]--;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        public int CountPrimes1(int n)
+        {
+            int count = 0;
+            int maincount = 0;
+            for (int i = 2; i < n; i++)
+            {
+                count = 0;
+                for (int j = 1; j <= i; j++)
+                {
+                    if (i % j == 0)
+                    {
+                        count++;
+                    }
+                    if (count > 2)
+                    {
+                        break;
+                    }
+                }
+                if (count == 2)
+                {
+                    maincount++;
+                }
+            }
+            return maincount;
+        }
+        public int CountPrimes(int n)
+        {
+            int maincount = 0;
+            bool[] Prime = new bool[n + 10];
+            for (int i = 2; i < n; i++)
+            {
+                Prime[i] = true;
+            }
+            for (int i = 2; 2 * i < n; i++)
+            {
+                for (int j = 2 * i; j <= n; j += i)
+                {
+                    Prime[j] = false;
+                }
+            }
+            for (int i = 2; i < n; i++)
+            {
+                if (Prime[i])
+                {
+                    maincount++;
+                }
+            }
+            Span<bool> isPrime = stackalloc bool[n + 1];
+            // int count=0;
+            // int maincount=0;
+            // for(int i = 2 ; i < n ; i++ )
+            // {
+            //     count=0;
+            //     for( int j = 1 ; j < i ; j++ )
+            //     {
+            //             if(i % j == 0){
+            //                 count++;
+            //             }
+            //             if(count>2){
+            //                 break;
+            //             }
+            //     }
+            //     if(count==2){
+            //         maincount++;
+            //     }
+            // }
+            return maincount;
         }
     }
     public class ListNode
