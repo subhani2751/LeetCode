@@ -136,8 +136,12 @@ namespace LeetCode
             //Program program = new Program();
             //var a = program.IsAnagram("car","rat");
 
+            //Program program = new Program();
+            //var a = program.CountPrimes(499979);
+
             Program program = new Program();
-            var a = program.CountPrimes(499979);
+            int[] a1 = new int[] { 3, 3, 3 };
+            var a = program.SearchRange(a1,3);
         }
         public ListNode ReverseeLinkedlistnode(ListNode node)
         {
@@ -775,6 +779,33 @@ namespace LeetCode
             //     }
             // }
             return maincount;
+        }
+        public int[] SearchRange(int[] nums, int target)
+        {
+            int firstvalue = -1, lastvalue =-1;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] == target)
+                {
+                    if(firstvalue== -1)
+                    {
+                        firstvalue = i;
+                    }
+                    else if(lastvalue< nums[i])
+                    {
+                        lastvalue = i;
+                    }
+                }
+            }
+            if(firstvalue==-1 && lastvalue > -1)
+            {
+                firstvalue = lastvalue;
+            }
+            else if(firstvalue>-1 && lastvalue == -1)
+            {
+                lastvalue=firstvalue;
+            }
+                return new int[] { firstvalue, lastvalue }; 
         }
     }
     public class ListNode
