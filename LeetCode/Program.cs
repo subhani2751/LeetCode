@@ -139,9 +139,26 @@ namespace LeetCode
             //Program program = new Program();
             //var a = program.CountPrimes(499979);
 
-            Program program = new Program();
-            int[] a1 = new int[] { 3, 3, 3 };
-            var a = program.SearchRange(a1,3);
+            //Program program = new Program();
+            //int[] a1 = new int[] { 3, 3, 3 };
+            //var a = program.SearchRange(a1,3);
+
+            //Program program = new Program();
+            //int[] a1 = new int[] { 1, 8, 6, 2, 5, 4, 8, 3, 7 };
+            //var a = program.MaxArea(a1);
+
+            //Program program = new Program();
+            //var a = program.LetterCombinations("23");
+
+            //Program program = new Program();
+            //var a = program.LengthOfLongestSubstring("pwwkew");
+
+            foreach (var num in GetEvenNumbers(0))
+            {
+                Console.WriteLine(num); // Step into this line
+            }
+
+
         }
         public ListNode ReverseeLinkedlistnode(ListNode node)
         {
@@ -441,7 +458,7 @@ namespace LeetCode
                     break;
                 }
             }
-            var char1= prefix.ToCharArray();
+            var char1 = prefix.ToCharArray();
             return prefix;
         }
         public string LongestCommonPrefix(string[] strs)
@@ -531,7 +548,7 @@ namespace LeetCode
                 if (nums[i] == val)
                 {
                     length = nums.Length - 1;
-                   
+
                     while (length >= i && length > 0)
                     {
                         if (nums[length] == val)
@@ -548,13 +565,13 @@ namespace LeetCode
                     }
                 }
             }
-           
+
             return nums.Length - removecount;
         }
 
         public int RemoveDuplicates(int[] nums)
         {
-            if(nums.Length == 0)
+            if (nums.Length == 0)
             {
                 return 0;
             }
@@ -648,15 +665,15 @@ namespace LeetCode
 
         public int[] PlusOne(int[] digits)
         {
-            
-            int index = 0; 
+
+            int index = 0;
             BigInteger total = 0;
             string svalue = "";
             for (int i = 0; i < digits.Length; i++)
             {
                 if (digits.Length - 1 == i)
                 {
-                    total += digits[i]+1;
+                    total += digits[i] + 1;
                 }
                 else
                 {
@@ -666,9 +683,9 @@ namespace LeetCode
             }
             svalue = total.ToString();
             int[] ints = new int[svalue.Length];
-            while (index< svalue.Length)
+            while (index < svalue.Length)
             {
-                ints[index] = svalue[index]-'0';
+                ints[index] = svalue[index] - '0';
                 index++;
             }
             return ints;
@@ -682,7 +699,7 @@ namespace LeetCode
                 return false;
             }
             int value = 0;
-            Dictionary<char,int> dicchar= new Dictionary<char,int>();
+            Dictionary<char, int> dicchar = new Dictionary<char, int>();
             for (int i = 0; i < s.Length; i++)
             {
                 if (dicchar.ContainsKey(s[i]))
@@ -698,8 +715,8 @@ namespace LeetCode
             {
                 if (dicchar.ContainsKey(t[i]))
                 {
-                    value= dicchar[t[i]];
-                    if(value == 0)
+                    value = dicchar[t[i]];
+                    if (value == 0)
                     {
                         break;
                     }
@@ -782,30 +799,210 @@ namespace LeetCode
         }
         public int[] SearchRange(int[] nums, int target)
         {
-            int firstvalue = -1, lastvalue =-1;
+            int firstvalue = -1, lastvalue = -1;
             for (int i = 0; i < nums.Length; i++)
             {
                 if (nums[i] == target)
                 {
-                    if(firstvalue== -1)
+                    if (firstvalue == -1)
                     {
                         firstvalue = i;
                     }
-                    else if(lastvalue< nums[i])
+                    else if (lastvalue < nums[i])
                     {
                         lastvalue = i;
                     }
                 }
             }
-            if(firstvalue==-1 && lastvalue > -1)
+            if (firstvalue == -1 && lastvalue > -1)
             {
                 firstvalue = lastvalue;
             }
-            else if(firstvalue>-1 && lastvalue == -1)
+            else if (firstvalue > -1 && lastvalue == -1)
             {
-                lastvalue=firstvalue;
+                lastvalue = firstvalue;
             }
-                return new int[] { firstvalue, lastvalue }; 
+            return new int[] { firstvalue, lastvalue };
+        }
+        public int MaxArea(int[] height)
+        {
+            GC.Collect();
+            int TotalL = 0, Leftindex = 0, rightindex = height.Length - 1, Lengthdiff = 0, Height = 0, maxtotal = 0;
+            while (Leftindex < rightindex)
+            {
+                Lengthdiff = rightindex - Leftindex;
+                Height = height[rightindex] > height[Leftindex] ? height[Leftindex] : height[rightindex];
+                maxtotal = Lengthdiff * Height;
+                if (maxtotal > TotalL)
+                {
+                    TotalL = maxtotal;
+                }
+                if (height[Leftindex] < height[rightindex])
+                {
+                    Leftindex++;
+                }
+                else
+                {
+                    rightindex--;
+                }
+            }
+            return TotalL;
+        }
+        //public IList<string> LetterCombinations(string digits)
+        //{
+        //    string value = "";
+        //    List<string> strings = new List<string>();
+        //    Dictionary<char, string> dic = new Dictionary<char, string>() {
+        //        { '2',"abc" },
+        //        { '3',"def" },
+        //        { '4',"ghi" },
+        //        { '5',"jkl" },
+        //        { '6',"mno" },
+        //        { '7',"pqrs" },
+        //        { '8',"tuv" },
+        //        { '9',"wxyz" }
+        //    };
+        //    List<string> values = new List<string>();
+        //    for (int i = 0; i < digits.Length ; i++) {
+        //        if (dic.TryGetValue(digits[i],out value))
+        //        {
+        //            values.Add(value);
+        //        }
+        //    }
+
+        //    if (values.Count() > 0)
+        //    {
+        //        List<string> strings1 = new List<string>();
+        //        string s = values[0];
+        //        for (int i = 0; i < s.Length ; i++) {
+        //            strings1= recursiveloop(ref strings,order: s[i].ToString(), loopindex: 1, values);
+        //        }
+        //    }
+        //    return strings;
+        //}
+        //public List<string> recursiveloop(ref List<string> strings, string order = "", int loopindex = 0, List<string> values = null)
+        //{
+        //    List<string> recursive = new List<string>();
+        //    string value1 = "";
+        //    if (loopindex < values.Count() - 1)
+        //    {
+        //        for (int i = 0; i < values[loopindex].Length; i++)
+        //        {
+        //            value1 = order + values[loopindex][i];
+        //            if (loopindex < values.Count() - 1)
+        //            {
+        //                recursive = recursiveloop(ref strings, order: value1, loopindex: loopindex + 1, values: values);
+        //            }
+        //            else
+        //            {
+        //                strings.Add(value1);
+        //            }
+        //        }
+        //    }
+        //    else
+        //    {
+        //        strings.Add(value1);
+        //    }
+
+        //    return recursive;
+        //}
+        public IList<string> LetterCombinations(string digits)
+        {
+            string value = "";
+
+            List<string> strings = new List<string>();
+            Dictionary<char, string> dic = new Dictionary<char, string>() {
+                    { '2',"abc" },
+                    { '3',"def" },
+                    { '4',"ghi" },
+                    { '5',"jkl" },
+                    { '6',"mno" },
+                    { '7',"pqrs" },
+                    { '8',"tuv" },
+                    { '9',"wxyz" }
+            };
+            List<string> values = new List<string>();
+            for (int i = 0; i < digits.Length; i++)
+            {
+                if (dic.TryGetValue(digits[i], out value))
+                {
+                    values.Add(value);
+                }
+            }
+
+            if (values.Count() > 0)
+            {
+                string s = values[0];
+                for (int i = 0; i < s.Length; i++)
+                {
+                    recursiveloop(ref strings, order: s[i].ToString(), loopindex: 1, values);
+                }
+            }
+            return strings;
+        }
+        public void recursiveloop(ref List<string> strings, string order = "", int loopindex = 0, List<string> values = null)
+        {
+            string value1 = "";
+            if (loopindex < values.Count() )
+            {
+                for (int i = 0; i < values[loopindex].Length; i++)
+                {
+                    value1 = order + values[loopindex][i];
+                    if (loopindex < values.Count() - 1)
+                    {
+                        recursiveloop(ref strings, order: value1, loopindex: loopindex + 1, values: values);
+                    }
+                    else
+                    {
+                        strings.Add(value1);
+                    }
+                }
+            }
+            else
+            {
+                strings.Add(order);
+            }
+        }
+        public int LengthOfLongestSubstring(string s)
+        {
+            Dictionary<char, int> dic = new Dictionary<char, int>();
+            string Finalvalue = "", a = "";
+            for (int i = 0; i < s.Length; i++)
+            {
+                dic = new Dictionary<char, int>();
+                a = s[i] + "";
+                dic.Add(s[i], 0);
+                for (int J = i + 1; J < s.Length; J++)
+                {
+                    if (dic.ContainsKey(s[J]))
+                    {
+                        if (Finalvalue.Length < a.Length)
+                        {
+                            Finalvalue = a;
+                            Console.WriteLine(Finalvalue);
+                        }
+                        break;
+                    }
+                    else
+                    {
+                        dic.Add(s[J], 0);
+                        a += s[J];
+                    }
+                }
+            }
+            return Finalvalue.Length;
+        }
+        static IEnumerable<object> GetEvenNumbers(int max)
+        {
+            for (int i = 0; i <= max; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    yield return i;
+                    //yield return 5;
+                    //yield return 15;// Yield the current even number
+                }
+            }
         }
     }
     public class ListNode
