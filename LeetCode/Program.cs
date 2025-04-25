@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Numerics;
+using System.Security.Cryptography;
 
 namespace LeetCode
 {
@@ -13,7 +14,7 @@ namespace LeetCode
         private ListNode head;
         static void Main(string[] args)
         {
-
+        
             ////3174. Clear Digits
             //Console.WriteLine("Enter a string with numbers");
             //string s = Console.ReadLine();
@@ -943,7 +944,7 @@ namespace LeetCode
         public void recursiveloop(ref List<string> strings, string order = "", int loopindex = 0, List<string> values = null)
         {
             string value1 = "";
-            if (loopindex < values.Count() )
+            if (loopindex < values.Count())
             {
                 for (int i = 0; i < values[loopindex].Length; i++)
                 {
@@ -1010,6 +1011,63 @@ namespace LeetCode
         public int val;
         public ListNode Next;
     }
+
+    //abstract class IA
+    //{
+    //    public void a1()
+    //    {
+    //        Console.WriteLine("cascs");
+    //    }
+    //    public abstract void a2();
+    //}
+    //class b : IA
+    //{
+    //    public void b1()
+    //    {
+    //        a1();
+    //    }
+    //    public override void a2()
+    //    {
+    //        Console.WriteLine("aaa");
+    //    }
+    //}
+
+    //interface IA
+    //{
+    //    void a1();
+    //}
+    //class A:IA
+    //{
+    //    public void a1()
+    //    {
+    //        Console.WriteLine("  ");
+    //    }
+    //}
+    //class B1
+    //{
+    //    public void B11()
+    //    {
+    //        IA a = new A();
+    //        a.a1();
+    //    }
+    //}
+
+    //class A 
+    //{
+    //    public void a1()
+    //    {
+    //        Console.WriteLine("new1223");
+    //    }
+
+    //}
+    //class b : A
+    //{
+    //    public void b1()
+    //    {
+    //        Console.WriteLine("new");
+    //    }
+
+    //}
 }
 
 
