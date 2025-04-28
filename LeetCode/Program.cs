@@ -14,7 +14,8 @@ namespace LeetCode
         private ListNode head;
         static void Main(string[] args)
         {
-        
+
+            #region
             ////3174. Clear Digits
             //Console.WriteLine("Enter a string with numbers");
             //string s = Console.ReadLine();
@@ -154,11 +155,31 @@ namespace LeetCode
             //Program program = new Program();
             //var a = program.LengthOfLongestSubstring("pwwkew");
 
-            foreach (var num in GetEvenNumbers(0))
-            {
-                Console.WriteLine(num); // Step into this line
-            }
+            //foreach (var num in GetEvenNumbers(0))
+            //{
+            //    Console.WriteLine(num); // Step into this line
+            //}
+            #endregion
 
+            //ListNode head1 =new ListNode();
+            //ListNode head2 = new ListNode(); ;
+
+            //Program program = new Program();
+            //int[] a1 = new int[] {4,2,1 };
+            //int[] a2 = new int[] {1 };
+
+            //head1= program.AddListnode(a1);
+            //head2 = program.AddListnode(a2);
+            //var a= program.MergeTwoLists(head1, head2);
+
+            //1,2,3,4,5
+            ListNode1 head1 = new ListNode1(1);
+            head1.Next = new ListNode1(2);
+            //head1.Next.Next = new ListNode1(3);
+            //head1.Next.Next.Next = new ListNode1(4);
+            //head1.Next.Next.Next.Next = new ListNode1(5);
+            Program program = new Program();
+            var a=program.RemoveNthFromEnd(head1,2);
 
         }
         public ListNode ReverseeLinkedlistnode(ListNode node)
@@ -219,6 +240,25 @@ namespace LeetCode
                 builder.Append(total[i]);
             }
             return BigInteger.Parse(builder.ToString());
+        }
+        public ListNode AddListnode(int[] data)
+        {
+            ListNode newNode = null; 
+            ListNode loopNode = null ;
+            foreach (var i in data)
+            {
+                ListNode head1 = new ListNode();
+                //if (newNode.Next != null)
+                //{
+                //    loopNode = newNode.Next;
+                //}
+                head1.val = i;
+                head1.Next = newNode;
+                newNode = head1;
+            }
+            return newNode;
+
+
         }
         public void AddAtBeginning(int data)
         {
@@ -849,6 +889,8 @@ namespace LeetCode
             }
             return TotalL;
         }
+
+        #region
         //public IList<string> LetterCombinations(string digits)
         //{
         //    string value = "";
@@ -907,6 +949,7 @@ namespace LeetCode
 
         //    return recursive;
         //}
+        #endregion
         public IList<string> LetterCombinations(string digits)
         {
             string value = "";
@@ -1005,6 +1048,128 @@ namespace LeetCode
                 }
             }
         }
+
+        public ListNode MergeTwoLists(ListNode list1, ListNode list2)
+        {
+            ListNode dummy = new ListNode();
+            ListNode current = dummy;
+            while (list1 != null && list2 != null)
+            {
+                if (list1.val <= list2.val)
+                {
+                    current.Next = list1;
+                    list1 = list1.Next;
+                }
+                else
+                {
+                    current.Next = list2;
+                    list2 = list2.Next;
+                }
+                current = current.Next;
+            }
+
+            if (list1 != null) current.Next = list1;
+            if (list2 != null) current.Next = list2;
+
+            return dummy.Next; 
+
+            //while (loopnode != null)
+            //{
+            //    innercount = 0;
+            //    list1 = innerloopnode;
+            //    if (list1 == null)
+            //    {
+            //        return list2;
+            //    }
+            //    while (list1 != null)
+            //    {
+            //        if (list1.val > loopnode.val)
+            //        {
+            //            ListNode tempnode = ;
+            //            list2
+            //            globalcount++;
+            //        }
+            //        else if (list1.val == loopnode.val && innercount== globalcount)
+            //        {
+            //            globalcount++;
+            //        }
+            //        else {
+            //            break;
+            //        }
+            //        innercount++;
+            //    }
+            //    loopnode = loopnode.Next;
+            //}
+
+            return list1;
+        }
+        public ListNode1 RemoveNthFromEnd(ListNode1 head, int n)
+        {
+            ListNode1 fast = head;
+            ListNode1 slow = head;
+
+            for (int i = 0; i <= n; i++)
+            {
+                if (fast == null) break; 
+                fast = fast.Next;
+            }
+
+            while (fast != null)
+            {
+                fast = fast.Next;
+                slow = slow.Next;
+            }
+
+            if (slow.Next != null)
+            {
+                slow.Next = slow.Next.Next;
+            }
+
+            return head;
+        }
+        public ListNode1 RemoveNthFromEnd1(ListNode1 head, int n)
+        {
+            int count = 0;
+            ListNode1 current = head;
+            ListNode1 current2 = head;
+            while (current != null)
+            {
+                count++;
+                if (current.Next == null)
+                    break;
+                current = current.Next;
+            }
+            if(count >= n)
+            {
+                current = head;
+                if(count<=n&& count == 1)
+                {
+                    return null;
+                }
+                n = count - (n-1);
+                for (int i = 1; i <= count; i++)
+                {
+                    if (i == n)
+                    {
+                        if (current.Next != null)
+                        {
+                            current.Next = current.Next.Next;
+                            break;
+                        }
+                        else
+                        {
+                            current2.Next = null;
+                        }
+                    }
+                    if (i != 1)
+                    {
+                        current2= current.Next;
+                    }
+                    current = current.Next;
+                }
+            }
+            return head;
+        }
     }
     public class ListNode
     {
@@ -1012,6 +1177,17 @@ namespace LeetCode
         public ListNode Next;
     }
 
+    public class ListNode1
+    {
+        public int val;
+        public ListNode1 Next;
+        public ListNode1(int _val)
+        {
+            val = _val;
+        }
+    }
+
+    #region
     //abstract class IA
     //{
     //    public void a1()
@@ -1036,7 +1212,7 @@ namespace LeetCode
     //{
     //    void a1();
     //}
-    //class A:IA
+    //class A : IA
     //{
     //    public void a1()
     //    {
@@ -1052,9 +1228,13 @@ namespace LeetCode
     //    }
     //}
 
-    //class A 
+    //class A
     //{
-    //    public void a1()
+    //    public static void a1(int a)
+    //    {
+    //        Console.WriteLine("new1223");
+    //    }
+    //    public static void a1(int a,int b)
     //    {
     //        Console.WriteLine("new1223");
     //    }
@@ -1062,12 +1242,31 @@ namespace LeetCode
     //}
     //class b : A
     //{
+
     //    public void b1()
     //    {
     //        Console.WriteLine("new");
     //    }
 
     //}
+
+    //public partial class Person
+    //{
+    //    public string FirstName { get; set; }
+    //    public string LastName { get; set; }
+    //    public void DisplayFullName1()
+    //    {
+    //        Console.WriteLine($"{FirstName} {LastName}");
+    //    }
+    //}
+    //public partial class Person
+    //{
+    //    public void DisplayFullName()
+    //    {
+    //        DisplayFullName1();
+    //    }
+    //}
+    #endregion
 }
 
 
