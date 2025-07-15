@@ -6,14 +6,64 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Numerics;
 using System.Security.Cryptography;
+using System.Web.Services;
+using System.Reflection;
+using Spring.Context;
+using Spring.Context.Support;
+using Spring.Expressions;
 
 namespace LeetCode
 {
+    //Download Spring.core from Nuget
+    public class Factory
+    {
+        private static IApplicationContext _context;
+        internal static IApplicationContext context
+        {
+            get 
+            {
+                if (_context == null)
+                {
+                    lock (ContextRegistry.SyncRoot)
+                    {
+                        _context = ContextRegistry.GetContext();
+                    }
+                }
+                return _context;
+            }
+        }
+        public static T GetObject<T>(string Name, params object[] Contrains)
+        {
+            try
+            {
+                object[] obj = null;
+                if (Contrains.Length > 0)
+                {
+                    obj=new object[Contrains.Length];
+                }
+                for (int i = 0; i < obj.Length; i++)
+                {
+                    obj[i] = Contrains[i];
+                }
+                return (T)context.GetObject(Name, obj);
+
+            }
+            catch (Exception Ex)
+            {
+                return default(T);
+            }
+        }
+    }
     internal class Program
     {
         private ListNode head;
+        private static IApplicationContext Context; 
         static void Main(string[] args)
         {
+            C2 c=new C2();
+            c.One(1);
+            //Context.GetObject("hola");
+            //Activator.CreateInstance(Type.GetType("Program"), args);
 
             #region
             ////3174. Clear Digits
@@ -178,8 +228,13 @@ namespace LeetCode
             //head1.Next.Next = new ListNode1(3);
             //head1.Next.Next.Next = new ListNode1(4);
             //head1.Next.Next.Next.Next = new ListNode1(5);
+            //Program program = new Program();
+            //var a=program.RemoveNthFromEnd(head1,1);
+
             Program program = new Program();
-            var a=program.RemoveNthFromEnd(head1,2);
+            string s = "my name is mabu-subhani shaik";
+            char[] chars = s.ToCharArray();
+            string[] ss = s.Split(new char[] { ' ' });
 
         }
         public ListNode ReverseeLinkedlistnode(ListNode node)
@@ -243,8 +298,8 @@ namespace LeetCode
         }
         public ListNode AddListnode(int[] data)
         {
-            ListNode newNode = null; 
-            ListNode loopNode = null ;
+            ListNode newNode = null;
+            ListNode loopNode = null;
             foreach (var i in data)
             {
                 ListNode head1 = new ListNode();
@@ -1071,7 +1126,7 @@ namespace LeetCode
             if (list1 != null) current.Next = list1;
             if (list2 != null) current.Next = list2;
 
-            return dummy.Next; 
+            return dummy.Next;
 
             //while (loopnode != null)
             //{
@@ -1105,12 +1160,14 @@ namespace LeetCode
         }
         public ListNode1 RemoveNthFromEnd(ListNode1 head, int n)
         {
-            ListNode1 fast = head;
-            ListNode1 slow = head;
+            ListNode1 temp = new ListNode1(0);
+            temp.Next = head;
+            ListNode1 fast = temp;
+            ListNode1 slow = temp;
 
             for (int i = 0; i <= n; i++)
             {
-                if (fast == null) break; 
+                if (fast == null) break;
                 fast = fast.Next;
             }
 
@@ -1125,7 +1182,7 @@ namespace LeetCode
                 slow.Next = slow.Next.Next;
             }
 
-            return head;
+            return temp.Next;
         }
         public ListNode1 RemoveNthFromEnd1(ListNode1 head, int n)
         {
@@ -1139,14 +1196,14 @@ namespace LeetCode
                     break;
                 current = current.Next;
             }
-            if(count >= n)
+            if (count >= n)
             {
                 current = head;
-                if(count<=n&& count == 1)
+                if (count <= n && count == 1)
                 {
                     return null;
                 }
-                n = count - (n-1);
+                n = count - (n - 1);
                 for (int i = 1; i <= count; i++)
                 {
                     if (i == n)
@@ -1163,13 +1220,64 @@ namespace LeetCode
                     }
                     if (i != 1)
                     {
-                        current2= current.Next;
+                        current2 = current.Next;
                     }
                     current = current.Next;
                 }
             }
             return head;
         }
+
+        #region
+        // Difference between throw and throw ex
+        //public void throwouter()
+        //{
+        //    try
+        //    {
+        //        throwinner();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine("throwouter "+ex);
+        //        throw ex;
+        //    }
+        //}
+        //public void throwinner()
+        //{
+        //    try
+        //    {
+        //        throwinner1();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine("throwinner " + ex);
+        //        throw ex;
+        //    }
+        //}
+        //public void throwinner1()
+        //{
+        //    try
+        //    {
+        //        throw new InvalidOperationException("Inner exception occurred");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine("throwinner " + ex);
+        //        throw ex;
+        //    }
+        //}
+        //public void throwglobal()
+        //{
+        //    try
+        //    {
+        //        throwouter();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine("throwglobal " + ex);
+        //    }
+        //}
+        #endregion
     }
     public class ListNode
     {
@@ -1266,6 +1374,199 @@ namespace LeetCode
     //        DisplayFullName1();
     //    }
     //}
+
+    public abstract class one
+    {
+        public void A1()
+        {
+
+        }
+    }
+
+    class b
+    {
+        static b()
+        {
+            //one on = new one();
+        }
+        public void checking1(ref int b, int a = 0, int c = 0) {
+        }
+        public void nothing()
+        {
+            int c = 0;
+            new123(out int a, 2, ref c, d: 5);
+            a = a + 1;
+            new123(out a, 1, ref c, 5);
+        }
+        public void new123(out int a, in int b, ref int c, int d)
+        {
+            a = 1;
+        }
+    }
+    public class Base
+    {
+        public const int Max = 100;
+        public readonly int id;
+        public static int counter;
+        //int avalue;
+        public Base()
+        {
+            id = 200;
+            counter = 10;
+            //avalue = 10;
+        }
+        public new void Show() => Console.WriteLine("Base");
+        public void Show2()
+        {
+            //Max = 200;
+            //id = 200;
+            counter = 100;
+        }
+    }
+
+    public class Derived : Base
+    {
+        public void Show() => Console.WriteLine("Derived");
+
+        public void Show23()
+        {
+
+        }
+    }
+    public class c : Derived
+    {
+        public void Show1()
+        {
+            Show();
+
+        }
+    }
+
+    //public interface  IA1
+    //{
+    //      void one();
+    //}
+    //public interface IA2: IA1
+    //{
+    //    void one1();
+    //}
+    //public abstract class IB2 
+    //{
+    //    int a;
+    //    public IB2()
+    //    {
+    //        a = 1;
+    //    }
+    //    public abstract void oneB2();
+    //}
+
+    //public abstract class  IB1 : C1, IA1
+    //{
+    //    int a;
+    //    public IB1()
+    //    {
+    //        a= 1;
+    //    }
+    //    public abstract void oneB1();
+    //    public void one()
+    //    {
+
+    //    }
+    //}
+    public  class C1
+    {
+        public virtual void onec1()
+        {
+
+        }
+        public void One1(int a)
+        {
+
+        }
+    }
+    public class C2 : C1
+    {
+        public  void One(int a)
+        {
+            
+        }
+    }
+
+    public class C3
+    {
+        public void One(int a)
+        {
+            a = 0;
+            int b = 0;
+            One1(ref a,out b);
+        }
+        public void One1(ref int a,out int b)
+        {
+            b = 0;
+        }
+    }
+
+    public static class C4
+    {
+        public static void One(int a)
+        {
+            a = 0;
+            int b = 0;
+           
+        }
+        public static void One(int a,int c)
+        {
+            a = 0;
+            int b = 0;
+        }
+        public static  void two(int a, int c)
+        {
+            a = 0;
+            int b = 0;
+        }
+
+    }
+    public sealed class newone
+    {
+        public newone()
+        {
+
+        }
+
+    }
+    public  class newone2
+    {
+        private newone2()
+        {
+            newone newone = new newone();
+        }
+    }
+
+    public interface IA
+    {
+        void A();
+    }
+
+
+
+
+    //public class A1 : IA2
+    //{
+    //    public void one()
+    //    {
+
+
+    //    }
+    //    public void one1()
+    //    {
+
+    //    }
+    //    public override  void oneB1()
+    //    {
+
+    //    }
+    //}
+
     #endregion
 }
 
