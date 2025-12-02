@@ -1295,6 +1295,46 @@ namespace LeetCode
         }
     }
 
+    public class A11
+    {
+       public int a;
+        public int b;
+        A11(string source)
+        {
+            Console.WriteLine(source);
+        }
+        public class A111
+        {
+
+        }
+    }
+    //public class A111:A11
+    //{
+    //    public int a1;
+    //    public int b1;
+    //}
+   
+
+    //public interface IA
+    //{
+    //    void a1();
+    //}
+    //public class B: IA
+    //{
+    //    public int b1;
+    //    public void a1()
+    //    {
+    //        b1 = 1;
+    //    }
+    //}
+    //public class c
+    //{
+    //    public void C1()
+    //    {
+    //        IA a=new B();
+          
+    //    }
+    //}
     #region
     //abstract class IA
     //{
@@ -1424,23 +1464,23 @@ namespace LeetCode
         }
     }
 
-    public class Derived : Base
-    {
-        public void Show() => Console.WriteLine("Derived");
+    //public class Derived : Base
+    //{
+    //    public void Show() => Console.WriteLine("Derived");
 
-        public void Show23()
-        {
+    //    public void Show23()
+    //    {
 
-        }
-    }
-    public class c : Derived
-    {
-        public void Show1()
-        {
-            Show();
+    //    }
+    //}
+    //public class c : Derived
+    //{
+    //    public void Show1()
+    //    {
+    //        Show();
 
-        }
-    }
+    //    }
+    //}
 
     //public interface  IA1
     //{
@@ -1542,10 +1582,10 @@ namespace LeetCode
         }
     }
 
-    public interface IA
-    {
-        void A();
-    }
+    //public interface IA
+    //{
+    //    void A();
+    //}
 
 
 
